@@ -8,38 +8,59 @@ var alphabet = ['a','b','c',
 				  's','t','u',
 				  'v','w','x',
 				  'y','z'];
-//Holds the all the words
+
+// Holds the all the words
 var wordBank =['professorplum', 'mrspeacock', 'missscarlett', 'colonelmustard', 'mrswhite', 'mrgreen', 'wadsworth', 'mrboddy'
 , 'wrench', 'candlestick', 'leadpipe', 'knife', 'revolver', 'rope'];
-//Holds chosenWord
+
+// Holds chosenWord
 var chosenWord = "";
-//Holds letters in word
+
+// Holds letters in word
 var lettersInWord = [];
-//Holds number of blanks in word
+
+// Holds number of blanks in word
 var numBlanks = 0;
-//Holds Blanks and successful guesses
+
+// Holds blanks and successful guesses
 var blanksAndSuccesses =[];
-//Holds Wrong guesses
+
+// Holds wrong guesses
 var wrongLetters = [];
-//Counters
+
+// Counters
 var winCount = 0;
 var loseCount = 0;
 var guessesLeft = 12;
 var rightGuessCounter = 0;
 
-
-//FUNCTIONS
+// Functions
 //----------------------------------------
-function reset()
-{
-	//Chooses word randombly from the wordBank
+function beginGame() {
+var fired = false;
+
+element.onkeydown = function() {
+    if(!fired) {
+        fired = true;
+        startGame();
+    }
+};
+
+element.onkeyup = function() {
+    fired = false;
+};
+}
+
+function reset() {
+
+	// Chooses word randombly from the wordBank
 	chosenWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-	//Splits the choosen word into individual letters
+	// Splits the chosen word into individual letters
 	lettersInWord = chosenWord.split('');
-	//Get the number of blanks
+	// Get the number of blanks
 	numBlanks = lettersInWord.length;
 	
-	//RESET
+	// Reset
 	//===========================================================
 	letterGuessed = 0;
 	rightGuessCounter = 0;
@@ -51,16 +72,18 @@ function reset()
 	startGame();
 }
 
-function startGame()
-{
-	//Chooses word randombly from the wordBank
+function startGame() {
+
+	// Chooses word randombly from the wordBank
 	chosenWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-	//Splits the choosen word into individual letters
+
+	// Splits the chosen word into individual letters
 	lettersInWord = chosenWord.split('');
-	//Get the number of blanks
+	
+	// Get the number of blanks
 	numBlanks = lettersInWord.length;
 	
-	//RESET
+	// Reset
 	//===========================================================
 	rightGuessCounter = 0;
 	guessesLeft = 12;
@@ -76,14 +99,14 @@ function startGame()
 					  'v','w','x',
 					  'y','z'];
 
-	//Populate blanks
+	// Populate blanks
 	for(var i = 0; i< numBlanks; i++)
 	{
 		blanksAndSuccesses.push('_');
 		document.getElementById('wordToGuess').innerHTML = blanksAndSuccesses;
 	}
 
-	//Changes HTML 
+	// Changes HTML 
 	document.getElementById('wordToGuess').innerHTML = blanksAndSuccesses.join(' ');
 	document.getElementById('numGuesses').innerHTML = guessesLeft;
 	document.getElementById('winCounter').innerHTML = winCount;
@@ -91,15 +114,14 @@ function startGame()
 	document.getElementById('wrongGuesses').innerHTML = wrongLetters;
 }
 
-function compareLetters(userKey)
-{
-				//If user key exist in choosen word then perform this function 
+function compareLetters(userKey) {
+
+				// If user key exists in chosen word then perform this function 
 				if(chosenWord.indexOf(userKey) > -1)
 				{
-					//Loops depending on the amount of blanks 
 					for(var i = 0; i < numBlanks; i++)
 					{
-						//Fills in right index with user key
+						// Fills in right index with user key
 						if(lettersInWord[i] === userKey)
 						{
 							rightGuessCounter++;
@@ -113,30 +135,34 @@ function compareLetters(userKey)
 				{
 					wrongLetters.push(userKey);
 					guessesLeft--;
-					//Changes HTML
+					
+					// Changes HTML
 					document.getElementById('numGuesses').innerHTML = guessesLeft;
 					document.getElementById('wrongGuesses').innerHTML = wrongLetters;
 				}
 }
 
-function winLose()
-{
-	// When number blanks if filled with right words then you win
+function winLose() {
+
+	// When the number blanks is filled with right letters then you win
 	if(rightGuessCounter === numBlanks)
 	{
-		//Counts Wins 
+		// Counts wins 
 		winCount++;
-		//Changes HTML
+
+		// Changes HTML
 		document.getElementById('winCounter').innerHTML = winCount;
 		alert('You Win');
 		reset();
 	}
-	// When number of Guesses reaches 0 then You lose
+
+	// When the number of Guesses reaches 0 then you lose
 	else if(guessesLeft === 0)
 	{
-		//Counts losses
+		// Counts losses
 		loseCount++;
-		//Changes HTML
+
+		// Changes HTML
 		document.getElementById('lossCounter').innerHTML = loseCount;
 		alert('You Lose');
 		reset();
@@ -145,8 +171,8 @@ function winLose()
 
 // Hangman Game
 //-------------------------------------------	
-// Start Playing
-startGame();
+// Start the game
+beginGame();
 
 document.onkeyup = function(event)
 {

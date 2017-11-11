@@ -4,8 +4,9 @@ body {
 
 div {
 	color: #961c25;
+	font-family: 'Spectral SC', serif;
 }
 
 .jumbotron {
-	background: url(assets/images/Clue-Poster.jpg);
+	background: #e5f0c8;
 }
