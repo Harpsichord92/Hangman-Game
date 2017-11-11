@@ -36,21 +36,6 @@ var rightGuessCounter = 0;
 
 // Functions
 //----------------------------------------
-function beginGame() {
-var fired = false;
-
-element.onkeydown = function() {
-    if(!fired) {
-        fired = true;
-        startGame();
-    }
-};
-
-element.onkeyup = function() {
-    fired = false;
-};
-}
-
 function reset() {
 
 	// Chooses word randombly from the wordBank
@@ -172,7 +157,7 @@ function winLose() {
 // Hangman Game
 //-------------------------------------------	
 // Start the game
-beginGame();
+startGame();
 
 document.onkeyup = function(event)
 {
